@@ -1,16 +1,19 @@
+import { Repository } from "typeorm";
 import { Produto } from "../../entities/Produto";
 import { IProdutoRepository } from "../IProdutoRepository";
 
 export class ProdutoRepository implements IProdutoRepository {
-    get(id: string): Promise<Produto> {
-        throw new Error("Method not implemented.");
-    }
-    save(produto: Produto): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    findByCodigo(codigo: number): Promise<Produto> {
-        throw new Error("Method not implemented.");
-    }
-    
+  constructor(private produtoRepository: Repository<Produto>) {
+    this.produtoRepository = produtoRepository;
+  }
 
+  get(id: string): Promise<Produto> {
+    throw new Error("Method not implemented.");
+  }
+  async save(produto: Produto): Promise<void> {
+    await this.produtoRepository.save(produto);
+  }
+  findByCodigo(codigo: number): Promise<Produto> {
+    throw new Error("Method not implemented.");
+  }
 }

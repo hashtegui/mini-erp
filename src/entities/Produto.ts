@@ -1,26 +1,23 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
-
-const uuid = require("uuid");
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: "pcprodut" })
 export class Produto {
-  @PrimaryColumn()
-  private id: string;
-
-  @Column({ unique: true })
+  @PrimaryGeneratedColumn("increment")
   private codprod: number;
 
   @Column()
   private descricao: string;
 
-  constructor(codprod: number, descricao: string, id?: string) {
-    this.codprod = codprod;
-    this.descricao = descricao;
+  @Column({
+    unique: true,
+    nullable: true,
+    type: "bigint",
+    comment: "Código de barras do produto",
+  })
+  private codigoDeBarras: string;
 
-    if (id) {
-      this.id = id;
-    } else {
-      this.id = uuid();
-    }
+  constructor(descricao: string, codigodDeBarras: string) {
+    this.descricao = descricao;
+    this.codigoDeBarras = codigodDeBarras;
   }
 }

@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { Produto } from "./entities/Produto";
 
 const PostGresDataSource = new DataSource({
   type: "postgres",
@@ -7,8 +8,9 @@ const PostGresDataSource = new DataSource({
   username: "postgres",
   password: "123456",
   database: "orm",
-  entities: ["./entities/*.ts"],
+  entities: [Produto],
   synchronize: true,
+  logging: true,
 });
 
 PostGresDataSource.initialize()
@@ -16,3 +18,5 @@ PostGresDataSource.initialize()
     console.log("DataSource initialized");
   })
   .catch((err) => console.log(err));
+
+export { PostGresDataSource };
