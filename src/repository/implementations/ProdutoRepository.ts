@@ -11,7 +11,14 @@ export class ProdutoRepository implements IProdutoRepository {
     throw new Error("Method not implemented.");
   }
   async save(produto: Produto): Promise<void> {
-    await this.produtoRepository.save(produto);
+    await this.produtoRepository
+      .save(produto)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   findByCodigo(codigo: number): Promise<Produto> {
     throw new Error("Method not implemented.");

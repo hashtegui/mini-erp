@@ -5,19 +5,12 @@ import { ProdutoRepository } from "./repository/implementations/ProdutoRepositor
 
 const router = Router();
 
-router.get("/teste", (req, res) => {
-  const prodRepository = PostGresDataSource.getRepository(Produto);
-  const produto = new Produto("Produto 1", "7894689231212");
-  new ProdutoRepository(prodRepository)
-    .save(produto)
-    .then(() => {
-      console.log("Salvo com sucesso!");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+router.post("/produtos", async (req, res) => {
+  const produto = req.body as Produto;
+  const produtoRepository = new ProdutoRepository(PostGresDataSource.getRepository(Produto));
 
-  res.json({ message: "Hello World" });
+  const produtoSalvo = await produtoRepository.save(produto);
+
 });
 
 export { router };
